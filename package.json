@@ -1,0 +1,23 @@
+{
+  "name": "crew",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/camlinke/crew.git"
+  },
+  "author": "Cam Linke",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/camlinke/crew/issues"
+  },
+  "homepage": "https://github.com/camlinke/crew#readme",
+  "dependencies": {
+    "express": "^4.13.3",
+    "mocha": "^2.3.2"
+  }
+}

@@ -70,5 +70,9 @@ Vagrant.configure(2) do |config|
     source ~/.nvm/nvm.sh
     nvm install node
     nvm alias default node
+
+    cd /vagrant
+    npm install
+    npm install -g nodemon
   SHELL
 end
