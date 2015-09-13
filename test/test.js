@@ -21,7 +21,7 @@ describe('Routing', function() {
   url = "http://localhost:4000";
   return describe('Homepage', function() {
     return it("Should have 'Hello World' on homepage", function() {
-      return request(url).get('/').expect(200).expect("Hello World!");
+      return request(url).get('/').expect(200);
     });
   });
 });

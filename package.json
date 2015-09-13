@@ -18,6 +18,8 @@
   "homepage": "https://github.com/camlinke/crew#readme",
   "dependencies": {
     "express": "^4.13.3",
+    "express-handlebars": "^2.0.1",
+    "handlebars": "^4.0.2",
     "mocha": "^2.3.2"
   },
   "devDependencies": {
