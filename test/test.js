@@ -20,7 +20,7 @@ describe('Routing', function() {
   var url;
   url = "http://localhost:4000";
   return describe('Homepage', function() {
-    return it("Should have 'Hello World' on homepage", function() {
+    return it("Should return 200 on homepage", function() {
       return request(url).get('/').expect(200);
     });
   });

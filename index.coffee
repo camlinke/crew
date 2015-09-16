@@ -9,7 +9,7 @@ app.engine 'handlebars', expressHandlebars {defaultLayout: 'main'}
 app.set 'view engine', 'handlebars'
 
 app.get '/', (req, res) ->
-    res.render 'home', {'title' : 'FOO'}
+    res.render 'home'
     return
 
 server = app.listen '4000', ->

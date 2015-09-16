@@ -14,9 +14,7 @@ app.engine('handlebars', expressHandlebars({
 app.set('view engine', 'handlebars');
 
 app.get('/', function(req, res) {
-  res.render('home', {
-    'title': 'FOO'
-  });
+  res.render('home');
 });
 
 server = app.listen('4000', function() {
