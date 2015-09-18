@@ -1,8 +1,11 @@
 express = require 'express'
 expressHandlebars = require 'express-handlebars'
 mongoose = require 'mongoose'
+bodyParser = require 'body-parser'
 
 app = express()
+
+app.use bodyParser.urlencoded {extended: true}
 
 # app.set 'port', process.env.PORT || 4000
 
@@ -29,18 +32,23 @@ app.get '/', (req, res) ->
     return
 
 app.get '/:group', (req, res) ->
-    res.send "id is set to #{req.params.group}"
+    Chat.find({
+        'group': 1234
+    }).exec (err, msgs) ->
+        res.send(msgs)
+    # res.send "id is set to #{req.params.group}"
 
 app.post '/:group/msg', (req, res) ->
     msg = {
         created: new Date(),
-        content: 'Hi',
+        content: req.body.message,
         username: 'camlinke',
         group: req.params.group
     }
     chat = new Chat(msg)
     chat.save (err, savedChat) ->
         console.log savedChat
+    res.send 'created'
 
 server = app.listen '4000', ->
     host = server.address().address
