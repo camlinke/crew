@@ -46,7 +46,9 @@ app.get('/:group', function(req, res) {
   return Chat.find({
     'group': 1234
   }).exec(function(err, msgs) {
-    return res.send(msgs);
+    return res.render('group', {
+      msgs: msgs
+    });
   });
 });
 

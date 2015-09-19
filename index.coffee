@@ -35,7 +35,7 @@ app.get '/:group', (req, res) ->
     Chat.find({
         'group': 1234
     }).exec (err, msgs) ->
-        res.send(msgs)
+        res.render 'group', { msgs: msgs }
     # res.send "id is set to #{req.params.group}"
 
 app.post '/:group/msg', (req, res) ->
