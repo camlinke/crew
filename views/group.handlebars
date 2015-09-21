@@ -4,3 +4,13 @@
     <li>{{this.content}}</li>
     <hr>
 {{/each}}
+
+<form method="POST" action="/{{group}}/msg">
+    <input type="text" name="message"><br>
+    <input type="submit" value="Submit">
+</form>
+
+<script type="text/javascript", src="/socket.io/socket.io.js"></script>
+<script>
+    var socket = io();
+</script>

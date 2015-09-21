@@ -1,11 +1,13 @@
 express = require 'express'
+app = express()
+http = require('http').Server app
+io = require('socket.io')(http)
 expressHandlebars = require 'express-handlebars'
 mongoose = require 'mongoose'
 bodyParser = require 'body-parser'
 
-app = express()
-
 app.use bodyParser.urlencoded {extended: true}
+app.use express.static __dirname + '/public'
 
 # app.set 'port', process.env.PORT || 4000
 
@@ -29,13 +31,14 @@ Chat = mongoose.model 'Chat', messageSchema
 
 app.get '/', (req, res) ->
     res.render 'home'
-    return
 
 app.get '/:group', (req, res) ->
     Chat.find({
-        'group': 1234
+        'group': req.params.group
     }).exec (err, msgs) ->
-        res.render 'group', { msgs: msgs }
+        console.log msgs
+        group = req.params.group
+        res.render 'group', { msgs: msgs, group: group }
     # res.send "id is set to #{req.params.group}"
 
 app.post '/:group/msg', (req, res) ->
@@ -50,7 +53,13 @@ app.post '/:group/msg', (req, res) ->
         console.log savedChat
     res.send 'created'
 
-server = app.listen '4000', ->
+io.on 'connection', (socket) ->
+    console.log 'a user connected'
+
+    socket.on 'disconnect', ->
+        console.log 'user disconnected'
+
+server = http.listen '4000', ->
     host = server.address().address
     port = server.address().port
 
