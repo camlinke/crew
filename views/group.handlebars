@@ -1,4 +1,6 @@
 <h1>Group</h1>
 {{#each msgs}}
-    <li>{{this}}</li>
+    <li>{{this.username}} {{this.created}}</li>
+    <li>{{this.content}}</li>
+    <hr>
 {{/each}}
