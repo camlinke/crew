@@ -106,10 +106,22 @@ io.on('connection', function(socket) {
   currentSession = socket.handshake.session;
   console.log("User: " + currentSession.username + " is in group: " + currentSession.group);
   socket.on('chat message', function(msg) {
-    console.log("message: " + msg);
-    return io.emit('chat message', {
-      msg: msg,
-      username: currentSession.username
+    var chat, datetime, message;
+    datetime = new Date();
+    message = {
+      created: datetime,
+      content: msg,
+      username: currentSession.username,
+      group: currentSession.group
+    };
+    chat = new Chat(message);
+    return chat.save(function(err, savedMessage) {
+      console.log(savedMessage);
+      return io.emit('chat message', {
+        msg: msg,
+        username: currentSession.username,
+        datetime: datetime
+      });
     });
   });
   return socket.on('disconnect', function() {

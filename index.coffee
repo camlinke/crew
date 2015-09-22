@@ -73,8 +73,17 @@ io.on 'connection', (socket) ->
     console.log "User: #{currentSession.username} is in group: #{currentSession.group}"
 
     socket.on 'chat message', (msg) ->
-        console.log "message: #{msg}"
-        io.emit 'chat message', {msg: msg, username: currentSession.username}
+        datetime = new Date()
+        message = {
+            created: datetime,
+            content: msg,
+            username: currentSession.username
+            group: currentSession.group
+        }
+        chat = new Chat(message)
+        chat.save (err, savedMessage) ->
+            console.log savedMessage
+            io.emit 'chat message', {msg: msg, username: currentSession.username, datetime: datetime}
 
     socket.on 'disconnect', ->
         console.log 'user disconnected'
