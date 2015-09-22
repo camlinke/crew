@@ -70,35 +70,35 @@ app.get('/', function(req, res) {
   return res.render('home');
 });
 
-app.get('/:group', function(req, res) {
+app.get('/group/:group', function(req, res) {
   return Chat.find({
     'group': req.params.group
   }).exec(function(err, msgs) {
-    var group;
-    console.log(msgs);
-    group = req.params.group;
-    req.session.username = "camlinke";
-    req.session.group = req.params.group;
-    return res.render('group', {
-      msgs: msgs,
-      group: group
-    });
+    var foo, group, username;
+    if (!req.session.username) {
+      foo = "bar";
+      req.session.group = req.params.group;
+      return res.redirect('/username');
+    } else {
+      group = req.params.group;
+      username = req.session.username;
+      req.session.group = group;
+      return res.render('group', {
+        msgs: msgs,
+        group: group,
+        username: username
+      });
+    }
   });
 });
 
-app.post('/:group/msg', function(req, res) {
-  var chat, msg;
-  msg = {
-    created: new Date(),
-    content: req.body.message,
-    username: 'camlinke',
-    group: req.params.group
-  };
-  chat = new Chat(msg);
-  chat.save(function(err, savedChat) {
-    return console.log(savedChat);
-  });
-  return res.send('created');
+app.get('/username', function(req, res) {
+  return res.render('username');
+});
+
+app.post('/createUsername', function(req, res) {
+  req.session.username = req.body.username;
+  return res.redirect("/group/" + req.session.group);
 });
 
 io.on('connection', function(socket) {

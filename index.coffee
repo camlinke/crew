@@ -45,28 +45,43 @@ Chat = mongoose.model 'Chat', messageSchema
 app.get '/', (req, res) ->
     res.render 'home'
 
-app.get '/:group', (req, res) ->
+app.get '/group/:group', (req, res) ->
     Chat.find({
         'group': req.params.group
     }).exec (err, msgs) ->
-        console.log msgs
-        group = req.params.group
-        req.session.username = "camlinke"
-        req.session.group = req.params.group
-        res.render 'group', { msgs: msgs, group: group }
+        if !req.session.username
+            foo = "bar"
+            req.session.group = req.params.group
+            res.redirect '/username'
+        else
+            group = req.params.group
+            username = req.session.username
+            req.session.group = group
+            res.render 'group', { msgs: msgs, group: group, username: username }
     # res.send "id is set to #{req.params.group}"
 
-app.post '/:group/msg', (req, res) ->
-    msg = {
-        created: new Date(),
-        content: req.body.message,
-        username: 'camlinke',
-        group: req.params.group
-    }
-    chat = new Chat(msg)
-    chat.save (err, savedChat) ->
-        console.log savedChat
-    res.send 'created'
+app.get '/username', (req, res) ->
+    res.render 'username'
+
+app.post '/createUsername', (req, res) ->
+    req.session.username = req.body.username
+    res.redirect "/group/#{req.session.group}"
+
+
+# app.post '/createGroup', (req, res) ->
+#     Chat.find({})
+
+# app.post '/:group/msg', (req, res) ->
+#     msg = {
+#         created: new Date(),
+#         content: req.body.message,
+#         username: 'camlinke',
+#         group: req.params.group
+#     }
+#     chat = new Chat(msg)
+#     chat.save (err, savedChat) ->
+#         console.log savedChat
+#     res.send 'created'
 
 io.on 'connection', (socket) ->
     currentSession = socket.handshake.session
