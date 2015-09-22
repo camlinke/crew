@@ -18,6 +18,8 @@
   "homepage": "https://github.com/camlinke/crew#readme",
   "dependencies": {
     "body-parser": "^1.14.0",
+    "cookie-parser": "^1.4.0",
+    "cookie-session": "^1.2.0",
     "express": "^4.13.3",
     "express-handlebars": "^2.0.1",
     "handlebars": "^4.0.2",

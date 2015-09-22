@@ -6,8 +6,21 @@ expressHandlebars = require 'express-handlebars'
 mongoose = require 'mongoose'
 bodyParser = require 'body-parser'
 
+cookieParser = require('cookie-parser')()
+session = require('cookie-session')({secret: 'secret'})
+
 app.use bodyParser.urlencoded {extended: true}
 app.use express.static __dirname + '/public'
+app.use cookieParser
+app.use session
+
+io.use (socket, next) ->
+    req = socket.handshake
+    res = {}
+    cookieParser req, res, (err) ->
+        if err
+            return next err
+        session req, res, next
 
 # app.set 'port', process.env.PORT || 4000
 
@@ -38,6 +51,8 @@ app.get '/:group', (req, res) ->
     }).exec (err, msgs) ->
         console.log msgs
         group = req.params.group
+        req.session.username = "camlinke"
+        req.session.group = req.params.group
         res.render 'group', { msgs: msgs, group: group }
     # res.send "id is set to #{req.params.group}"
 
@@ -54,11 +69,12 @@ app.post '/:group/msg', (req, res) ->
     res.send 'created'
 
 io.on 'connection', (socket) ->
-    console.log 'a user connected'
+    currentSession = socket.handshake.session
+    console.log "User: #{currentSession.username} is in group: #{currentSession.group}"
 
     socket.on 'chat message', (msg) ->
         console.log "message: #{msg}"
-        io.emit 'chat message', msg
+        io.emit 'chat message', {msg: msg, username: currentSession.username}
 
     socket.on 'disconnect', ->
         console.log 'user disconnected'
