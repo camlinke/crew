@@ -79,6 +79,10 @@ app.post('/:group/msg', function(req, res) {
 
 io.on('connection', function(socket) {
   console.log('a user connected');
+  socket.on('chat message', function(msg) {
+    console.log("message: " + msg);
+    return io.emit('chat message', msg);
+  });
   return socket.on('disconnect', function() {
     return console.log('user disconnected');
   });
