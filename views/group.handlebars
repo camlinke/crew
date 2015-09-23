@@ -1,32 +1,19 @@
-<h1>Group</h1>
-<ul id="messages">
-    {{#each msgs}}
-        <li>{{this.username}} {{this.created}}</li>
-        <li>{{this.content}}</li>
-        <hr>
-    {{/each}}
-</ul>
+<h1>{{group}}</h1>
+<div class="row">
+    <div class="column-md-12">
+        <ul id="messages">
+            {{#each msgs}}
+                <li>{{this.username}} {{this.created}}</li>
+                <li>{{this.content}}</li>
+                <hr>
+            {{/each}}
+        </ul>
+    </div>
+</div>
 
 <form action="">
     <input type="text" name="message" id="m"><br>
     <input type="submit" value="Submit">
 </form>
-
 <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script>
-    // Socket.io Stuff
-    var socket = io();
-    $('form').submit( function() {
-        socket.emit('chat message', $('#m').val());
-        $('#m').val('');
-        return false;
-    });
-    socket.on('chat message', function(msg) {
-        console.log(msg)
-        var messageHeader = msg.username + " " + msg.datetime;
-        $('#messages').append($('<li>').text(messageHeader));
-        $('#messages').append($('<li>').text(msg.msg));
-        $('#messages').append($('<hr>'));
-    });
-</script>
+<script type="text/javascript" src="../js/io.js"></script>

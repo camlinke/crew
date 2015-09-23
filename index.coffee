@@ -40,7 +40,15 @@ messageSchema = mongoose.Schema {
     group: String
 }
 
+groupSchema = mongoose.Schema {
+    created: Date,
+    endDate: Date,
+    groupName: String,
+    password: String
+}
+
 Chat = mongoose.model 'Chat', messageSchema
+Group = mongoose.model 'Group', groupSchema
 
 app.get '/', (req, res) ->
     res.render 'home'
@@ -68,8 +76,26 @@ app.post '/createUsername', (req, res) ->
     res.redirect "/group/#{req.session.group}"
 
 
-# app.post '/createGroup', (req, res) ->
-#     Chat.find({})
+app.post '/createGroup', (req, res) ->
+    Chat.find({
+        'group': req.body.groupName
+    }).exec (err, group) ->
+        if group.length > 0
+            error = "group already exists"
+            console.log error
+            res.redirect "/"
+        else
+            g = {
+                created: +new Date,
+                endDate: +new Date + 86400000,
+                groupName: req.body.groupName,
+                password: ""
+            }
+            group = new Group(g)
+            group.save (err, savedGroup) ->
+                res.redirect "/group/#{req.body.groupName}"
+
+
 
 # app.post '/:group/msg', (req, res) ->
 #     msg = {
@@ -88,7 +114,7 @@ io.on 'connection', (socket) ->
     console.log "User: #{currentSession.username} is in group: #{currentSession.group}"
 
     socket.on 'chat message', (msg) ->
-        datetime = new Date()
+        datetime = +new Date()
         message = {
             created: datetime,
             content: msg,
