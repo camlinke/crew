@@ -75,10 +75,11 @@ Vagrant.configure(2) do |config|
     echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
     sudo apt-get update
     sudo apt-get install -y mongodb-org
-    # sudo service mongod start
+    sudo service mongod start
 
     cd /vagrant
     npm install
     npm install -g nodemon
+    sudo nodemon index.js
   SHELL
 end
