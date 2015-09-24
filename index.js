@@ -79,7 +79,7 @@ app.get('/', function(req, res) {
   return res.render('home');
 });
 
-app.get('/group/:group', function(req, res) {
+app.get('/groups/:group', function(req, res) {
   return Chat.find({
     'group': req.params.group
   }).exec(function(err, msgs) {
@@ -101,16 +101,16 @@ app.get('/group/:group', function(req, res) {
   });
 });
 
-app.get('/username', function(req, res) {
+app.get('/users/create', function(req, res) {
   return res.render('username');
 });
 
-app.post('/createUsername', function(req, res) {
+app.post('/users/create', function(req, res) {
   req.session.username = req.body.username;
   return res.redirect("/group/" + req.session.group);
 });
 
-app.post('/createGroup', function(req, res) {
+app.post('/groups/create', function(req, res) {
   return Chat.find({
     'group': req.body.groupName
   }).exec(function(err, group) {

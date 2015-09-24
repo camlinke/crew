@@ -1,6 +1,7 @@
 assert = require 'assert'
 express = require '..'
 request = require 'supertest'
+mongoose = require 'mongoose'
 # chai = require('chai')
 # chaiHttp = require 'chai-http'
 # sw = require 'selenium-webdriver'
@@ -27,21 +28,14 @@ describe 'Routing', ->
             request url
                 .get '/'
                 .expect 200
-            #     .end (err, res) ->
-            #         expect res.text
-            #             .dom.to.contain.text('mocha')
-            # console.log(request(url))
-            # expect(request(url).text).dom.to.contain.text('HOME')
-            # chai.request url
-            #     .get('/')
-            #     .then (res) ->
-            #         chai.expect(res).to.have.status(200)
-                    # chai.expect(res).to.contain.text 'HOME'
-                    # expect(res).dom.to.contain.text('HOME')
-            # driver.get "#{url}/"
-            #     .done()
-                # .expect("h1").dom.to.contain.text("HOME")
 
+# describe 'Groups', ->
+#     url = "http://localhost:4000"
+
+#     describe 'Create Group', ->
+#         it "Should create a new group", () ->
+#             request url
+#                 .post('/groups/')
 
 
 
