@@ -1,0 +1,38 @@
+.group-title {
+    text-align: center;
+}
+
+.username {
+    font-size: 18px;
+}
+
+.datetime {
+    font-size: 14px;
+    color: lightgrey;
+}
+
+.content {
+    font-size: 22px;
+}
+
+.timer {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.messages {
+    padding: 10px;
+}
+
+.message-form {
+    bottom: 0px;
+    position: fixed;
+    background-color: white;
+    padding-bottom: 15px;
+    margin-bottom: 0px;
+}
+
+.message-bar {
+    background-color: white;
+    margin-top: 10px;
+}

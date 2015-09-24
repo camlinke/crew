@@ -13,7 +13,7 @@ socket.on('chat message', function(msg) {
   var messageHeader;
   console.log(msg);
   messageHeader = "" + msg.username + " " + msg.datetime;
-  $('#messages').append($('<li>').text(messageHeader));
-  $('#messages').append($('<li>').text(msg.msg));
+  $('#messages').append($('<span class="username">').text(messageHeader));
+  $('#messages').append($('<p class="content">').text(msg.msg));
   return $('#messages').append($('<hr>'));
 });
