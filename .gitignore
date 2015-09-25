@@ -34,3 +34,5 @@ boxes/*
 /website/www/.vagrant
 /vagrant-spec.config.rb
 /.vagrant/machines/default/virtualbox
+
+provision.sh

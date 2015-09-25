@@ -12,7 +12,7 @@ Vagrant.configure(2) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "digital_ocean"
+  config.vm.box = "ubuntu/trusty64"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -22,7 +22,7 @@ Vagrant.configure(2) do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
-  config.vm.network "forwarded_port", guest: 4000, host: 4000
+  config.vm.network "forwarded_port", guest: 8080, host: 8080
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -57,7 +57,9 @@ Vagrant.configure(2) do |config|
   config.vm.provider :digital_ocean do |provider, override|
     override.ssh.private_key_path = '~/.ssh/id_rsa'
     override.vm.box = 'digital_ocean'
+    override.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box"
 
+    provider.ssh_key_name = 'SSH Key'
     provider.token = ENV['DO_TOKEN']
     provider.image = 'ubuntu-14-04-x64'
     provider.region = 'nyc2'
@@ -74,22 +76,26 @@ Vagrant.configure(2) do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  config.vm.provision "shell", inline: <<-SHELL
-    sudo apt-get update
-    wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.26.1/install.sh | bash
-    source ~/.nvm/nvm.sh
-    nvm install node
-    nvm alias default node
+  # config.vm.provision "shell", inline: <<-SHELL
+  #   sudo apt-get update
+  #   wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.26.1/install.sh | bash
+  #   source ~/.nvm/nvm.sh
+  #   nvm install node
+  #   nvm alias default node
 
-    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
-    echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
-    sudo apt-get update
-    sudo apt-get install -y mongodb-org
-    sudo service mongod start
+  #   sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+  #   echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+  #   sudo apt-get update
+  #   sudo apt-get install -y mongodb-org
+  #   sudo service mongod start
 
-    cd /vagrant
-    npm install
-    npm install -g nodemon
-    sudo nodemon index.js
-  SHELL
+  #   sudo apt-get install -y nginx
+
+  #   cd /vagrant
+  #   npm install
+  #   npm install -g nodemon
+  #   nohup nodemon index.js &
+  # SHELL
+
+  config.vm.provision :shell, :path => "provision.sh"
 end
