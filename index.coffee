@@ -60,20 +60,20 @@ app.get '/groups/:group', (req, res) ->
         if !req.session.username
             foo = "bar"
             req.session.group = req.params.group
-            res.redirect '/username'
+            res.redirect '/users/create'
         else
             group = req.params.group
             username = req.session.username
             req.session.group = group
             res.render 'group', { msgs: msgs, group: group, username: username }
-    # res.send "id is set to #{req.params.group}"
+    # res.send "id is sdet to #{req.params.group}"
 
 app.get '/users/create', (req, res) ->
     res.render 'username'
 
 app.post '/users/create', (req, res) ->
     req.session.username = req.body.username
-    res.redirect "/group/#{req.session.group}"
+    res.redirect "/groups/#{req.session.group}"
 
 
 app.post '/groups/create', (req, res) ->
@@ -93,7 +93,7 @@ app.post '/groups/create', (req, res) ->
             }
             group = new Group(g)
             group.save (err, savedGroup) ->
-                res.redirect "/group/#{req.body.groupName}"
+                res.redirect "/groups/#{req.body.groupName}"
 
 
 io.on 'connection', (socket) ->

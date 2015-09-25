@@ -87,7 +87,7 @@ app.get('/groups/:group', function(req, res) {
     if (!req.session.username) {
       foo = "bar";
       req.session.group = req.params.group;
-      return res.redirect('/username');
+      return res.redirect('/users/create');
     } else {
       group = req.params.group;
       username = req.session.username;
@@ -107,7 +107,7 @@ app.get('/users/create', function(req, res) {
 
 app.post('/users/create', function(req, res) {
   req.session.username = req.body.username;
-  return res.redirect("/group/" + req.session.group);
+  return res.redirect("/groups/" + req.session.group);
 });
 
 app.post('/groups/create', function(req, res) {
@@ -128,7 +128,7 @@ app.post('/groups/create', function(req, res) {
       };
       group = new Group(g);
       return group.save(function(err, savedGroup) {
-        return res.redirect("/group/" + req.body.groupName);
+        return res.redirect("/groups/" + req.body.groupName);
       });
     }
   });
