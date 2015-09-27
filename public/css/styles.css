@@ -37,3 +37,15 @@
     background-color: white;
     margin-top: 10px;
 }
+
+.create-group {
+    max-width: 330px;
+    padding: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.create-group input[type="text"] {
+    margin-bottom: 15px;
+    height: 45px;
+}
