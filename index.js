@@ -80,22 +80,27 @@ app.get('/', function(req, res) {
 });
 
 app.get('/groups/:group', function(req, res) {
-  return Chat.find({
-    'group': req.params.group
-  }).exec(function(err, msgs) {
-    var foo, group, username;
-    if (!req.session.username) {
-      foo = "bar";
-      req.session.group = req.params.group;
-      return res.redirect('/users/create');
-    } else {
-      group = req.params.group;
-      username = req.session.username;
-      req.session.group = group;
-      return res.render('group', {
-        msgs: msgs,
-        group: group,
-        username: username
+  return Group.find({
+    'groupName': req.params.group
+  }).exec(function(err, group) {
+    if (group && group.endDate < new Date()) {
+      return Chat.find({
+        'group': req.params.group
+      }).exec(function(err, msgs) {
+        var foo, username;
+        if (!req.session.username) {
+          foo = "bar";
+          req.session.group = req.params.group;
+          return res.redirect('/users/create');
+        } else {
+          username = req.session.username;
+          req.session.groupName = groupName;
+          return res.render('group', {
+            msgs: msgs,
+            group: group,
+            username: username
+          });
+        }
       });
     }
   });

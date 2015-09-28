@@ -54,18 +54,21 @@ app.get '/', (req, res) ->
     res.render 'home'
 
 app.get '/groups/:group', (req, res) ->
-    Chat.find({
-        'group': req.params.group
-    }).exec (err, msgs) ->
-        if !req.session.username
-            foo = "bar"
-            req.session.group = req.params.group
-            res.redirect '/users/create'
-        else
-            group = req.params.group
-            username = req.session.username
-            req.session.group = group
-            res.render 'group', { msgs: msgs, group: group, username: username }
+    Group.find({
+        'groupName': req.params.group,
+    }).exec (err, group) ->
+        if group and group.endDate < new Date()
+            Chat.find({
+                'group': req.params.group
+            }).exec (err, msgs) ->
+                if !req.session.username
+                    foo = "bar"
+                    req.session.group = req.params.group
+                    res.redirect '/users/create'
+                else
+                    username = req.session.username
+                    req.session.groupName = groupName
+                    res.render 'group', { msgs: msgs, group: group, username: username }
     # res.send "id is sdet to #{req.params.group}"
 
 app.get '/users/create', (req, res) ->

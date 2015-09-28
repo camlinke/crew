@@ -72,6 +72,11 @@ Vagrant.configure(2) do |config|
     end
   end
 
+  # config.vm.provision :shell, inline: <<-SHELL
+  #   sudo service nginx restart
+  #   screen -dm bash -c "cd /vagrant; node index.js;"
+  # SHELL
+
   # Define a Vagrant Push strategy for pushing to Atlas. Other push strategies
   # such as FTP and Heroku are also available. See the documentation at
   # https://docs.vagrantup.com/v2/push/atlas.html for more information.
