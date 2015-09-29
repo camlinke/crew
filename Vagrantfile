@@ -72,7 +72,12 @@ Vagrant.configure(2) do |config|
     end
   end
 
-  # config.vm.provision :shell, inline: <<-SHELL
+  config.trigger.after :reload do
+    info "Restarting Screen Session"
+    @machine.communicate.sudo("bash /vagrant/reload.sh")
+    # run_remote "bash /vagrant/reload.sh"
+  end
+  # config.vm.provision :reload, inline: <<-SHELL
   #   sudo service nginx restart
   #   screen -dm bash -c "cd /vagrant; node index.js;"
   # SHELL
@@ -109,4 +114,5 @@ Vagrant.configure(2) do |config|
   # SHELL
 
   config.vm.provision :shell, :path => "provision.sh"
+  # config.vm.provision :shell, :path => "reload.sh", privileged: false
 end

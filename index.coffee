@@ -53,22 +53,28 @@ Group = mongoose.model 'Group', groupSchema
 app.get '/', (req, res) ->
     res.render 'home'
 
+app.get '/test', (req, res) ->
+    res.send "testssss"
+
 app.get '/groups/:group', (req, res) ->
     Group.find({
         'groupName': req.params.group,
     }).exec (err, group) ->
-        if group and group.endDate < new Date()
+        if group and group[0].endDate > new Date()
+            group = group[0]
             Chat.find({
                 'group': req.params.group
             }).exec (err, msgs) ->
+                console.log msgs
                 if !req.session.username
-                    foo = "bar"
                     req.session.group = req.params.group
                     res.redirect '/users/create'
                 else
                     username = req.session.username
-                    req.session.groupName = groupName
+                    req.session.groupName = group.groupName
                     res.render 'group', { msgs: msgs, group: group, username: username }
+        else
+            res.redirect "/"
     # res.send "id is sdet to #{req.params.group}"
 
 app.get '/users/create', (req, res) ->
@@ -76,7 +82,7 @@ app.get '/users/create', (req, res) ->
 
 app.post '/users/create', (req, res) ->
     req.session.username = req.body.username
-    res.redirect "/groups/#{req.session.group}"
+    res.redirect "/groups/#{req.session.groupName}"
 
 
 app.post '/groups/create', (req, res) ->
@@ -101,7 +107,7 @@ app.post '/groups/create', (req, res) ->
 
 io.on 'connection', (socket) ->
     currentSession = socket.handshake.session
-    console.log "User: #{currentSession.username} is in group: #{currentSession.group}"
+    console.log "User: #{currentSession.username} is in group: #{currentSession.groupName}"
 
     socket.on 'chat message', (msg) ->
         datetime = +new Date()
@@ -109,7 +115,7 @@ io.on 'connection', (socket) ->
             created: datetime,
             content: msg,
             username: currentSession.username
-            group: currentSession.group
+            group: currentSession.groupName
         }
         chat = new Chat(message)
         chat.save (err, savedMessage) ->

@@ -24,6 +24,10 @@ server {
 
     location / {
         proxy_pass http://localhost:4000;
+        proxy_http_version 1.1;
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection "upgrade";
+		proxy_set_header Host $host;
     }
 }
 
@@ -32,6 +36,10 @@ server {
 
     location / {
         proxy_pass http://localhost:4000;
+        proxy_http_version 1.1;
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection "upgrade";
+		proxy_set_header Host $host;
     }
 }
 
@@ -39,11 +47,12 @@ EOF
 
 sudo service nginx restart
 
-screen -dm bash -c "cd /vagrant; node index.js;"
+cd /vagrant
+npm install
+npm install -g nodemon
 
-# cd /vagrant
-# npm install
-# npm install -g nodemon
+screen -dm bash -c "cd /vagrant; nodemon index.js;"
+
 # nohup node index.js &
 
 # sudo apt-get install -y ruby

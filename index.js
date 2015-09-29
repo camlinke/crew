@@ -79,22 +79,27 @@ app.get('/', function(req, res) {
   return res.render('home');
 });
 
+app.get('/test', function(req, res) {
+  return res.send("testssss");
+});
+
 app.get('/groups/:group', function(req, res) {
   return Group.find({
     'groupName': req.params.group
   }).exec(function(err, group) {
-    if (group && group.endDate < new Date()) {
+    if (group && group[0].endDate > new Date()) {
+      group = group[0];
       return Chat.find({
         'group': req.params.group
       }).exec(function(err, msgs) {
-        var foo, username;
+        var username;
+        console.log(msgs);
         if (!req.session.username) {
-          foo = "bar";
           req.session.group = req.params.group;
           return res.redirect('/users/create');
         } else {
           username = req.session.username;
-          req.session.groupName = groupName;
+          req.session.groupName = group.groupName;
           return res.render('group', {
             msgs: msgs,
             group: group,
@@ -102,6 +107,8 @@ app.get('/groups/:group', function(req, res) {
           });
         }
       });
+    } else {
+      return res.redirect("/");
     }
   });
 });
@@ -112,7 +119,7 @@ app.get('/users/create', function(req, res) {
 
 app.post('/users/create', function(req, res) {
   req.session.username = req.body.username;
-  return res.redirect("/groups/" + req.session.group);
+  return res.redirect("/groups/" + req.session.groupName);
 });
 
 app.post('/groups/create', function(req, res) {
@@ -142,7 +149,7 @@ app.post('/groups/create', function(req, res) {
 io.on('connection', function(socket) {
   var currentSession;
   currentSession = socket.handshake.session;
-  console.log("User: " + currentSession.username + " is in group: " + currentSession.group);
+  console.log("User: " + currentSession.username + " is in group: " + currentSession.groupName);
   socket.on('chat message', function(msg) {
     var chat, datetime, message;
     datetime = +new Date();
@@ -150,7 +157,7 @@ io.on('connection', function(socket) {
       created: datetime,
       content: msg,
       username: currentSession.username,
-      group: currentSession.group
+      group: currentSession.groupName
     };
     chat = new Chat(message);
     return chat.save(function(err, savedMessage) {
