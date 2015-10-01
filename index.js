@@ -129,8 +129,9 @@ app.post('/users/create', function(req, res) {
 });
 
 app.post('/groups/create', function(req, res) {
-  var groupName;
+  var endDate, groupName;
   groupName = req.body.groupName.replace(/(?:)/g, '');
+  endDate = req.body.endDate;
   return Chat.find({
     'group': groupName
   }).exec(function(err, group) {
@@ -142,7 +143,7 @@ app.post('/groups/create', function(req, res) {
     } else {
       g = {
         created: +(new Date),
-        endDate: +(new Date) + 864000000,
+        endDate: new Date(endDate),
         groupName: groupName,
         password: ""
       };

@@ -9,8 +9,14 @@
 		    <div class="col-md-6">
 		        <form method="POST" action="/groups/create" class="create-group">
 		            <h1>Create Group</h1>
-		            <input type="text" name="groupName" class="form-control" id="groupName" placeholder="Group Name (No Spaces)">
-		            <input type="text" class="date-picker form-control" data-date-start-view="month" data-date-format="mm/dd/yy" data-date="{{dateTomorrow}}" value="{{dateTomorrow}}" name="removeDate" placeholder="MM/DD/YY" id="date-picker">
+		            <div class="form-group">
+		            	<label for="groupName">Group Name</label>
+			            <input type="text" name="groupName" class="form-control" id="groupName" placeholder="Group Name (No Spaces)">
+		            </div>
+		            <div class="form-group">
+		            	<label for="endDate">Date to Remove Group</label>
+		            	<input type="text" class="date-picker form-control" data-date-start-view="month" data-date-format="mm/dd/yy" data-date="{{dateTomorrow}}" value="{{dateTomorrow}}" name="endDate" placeholder="MM/DD/YY" id="date-picker">
+		            </div>
 		            <button class="btn btn-lg btn-primary btn-block" type="submit" value="submit">Create</button>
 		        </form>
 		    </div>

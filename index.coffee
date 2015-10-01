@@ -89,6 +89,7 @@ app.post '/users/create', (req, res) ->
 
 app.post '/groups/create', (req, res) ->
     groupName = req.body.groupName.replace /// ///g,''
+    endDate = req.body.endDate
     Chat.find({
         'group': groupName
     }).exec (err, group) ->
@@ -99,7 +100,7 @@ app.post '/groups/create', (req, res) ->
         else
             g = {
                 created: +new Date,
-                endDate: +new Date + 864000000,
+                endDate: new Date(endDate),
                 groupName: groupName,
                 password: ""
             }
