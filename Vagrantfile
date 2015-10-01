@@ -58,6 +58,7 @@ Vagrant.configure(2) do |config|
     local.vm.box = "ubuntu/trusty64"
   end
 
+  config.vm.hostname = 'chatfly'
   config.vm.define :digital_ocean do |digital_ocean|
     digital_ocean.vm.provider :digital_ocean do |provider, override|
       override.ssh.private_key_path = '~/.ssh/id_rsa'
@@ -72,11 +73,11 @@ Vagrant.configure(2) do |config|
     end
   end
 
-  config.trigger.after :reload do
-    info "Restarting Screen Session"
-    @machine.communicate.sudo("bash /vagrant/reload.sh")
-    # run_remote "bash /vagrant/reload.sh"
-  end
+  # config.trigger.after :reload do
+  #   info "Restarting Screen Session"
+  #   @machine.communicate.sudo("bash /vagrant/reload.sh")
+  #   # run_remote "bash /vagrant/reload.sh"
+  # end
   # config.vm.provision :reload, inline: <<-SHELL
   #   sudo service nginx restart
   #   screen -dm bash -c "cd /vagrant; node index.js;"
