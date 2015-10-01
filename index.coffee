@@ -52,7 +52,7 @@ Chat = mongoose.model 'Chat', messageSchema
 Group = mongoose.model 'Group', groupSchema
 
 app.get '/', (req, res) ->
-    dateTomorrow = moment().format('MM/DD/YY')
+    dateTomorrow = moment().add(1, 'days').format 'MM/DD/YY'
     res.render 'home', { dateTomorrow: dateTomorrow}
 
 app.get '/test', (req, res) ->

@@ -79,7 +79,7 @@ Group = mongoose.model('Group', groupSchema);
 
 app.get('/', function(req, res) {
   var dateTomorrow;
-  dateTomorrow = moment().format('MM/DD/YY');
+  dateTomorrow = moment().add(1, 'days').format('MM/DD/YY');
   return res.render('home', {
     dateTomorrow: dateTomorrow
   });
