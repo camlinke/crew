@@ -1,4 +1,42 @@
-.group-title {
+body {
+    background-color: #FFE0A6;
+}
+
+.btn {
+    background-color: #9150B2;
+    border: none;
+    border-radius: none;
+}
+
+.btn:hover {
+    background-color: #D78CFF;
+}
+
+.navbar {
+    background-color: #9150B2;
+    border: none;
+    margin-bottom: 20px;
+}
+
+#navbar {
+    color: black;
+}
+
+h1 {
+    margin-top: 70px;
+    text-align: center;
+}
+
+.homepage {
+    background-color: #7BCCA2;
+    height: 100%;
+}
+
+.homepage-content {
+    margin-top: 70px;
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 1.1;
     text-align: center;
 }
 
@@ -27,7 +65,7 @@
 .message-form {
     bottom: 0px;
     position: fixed;
-    background-color: white;
+    background-color: #FFE0A6;
     padding-bottom: 15px;
     padding-top: 15px;
     margin-bottom: 0px;

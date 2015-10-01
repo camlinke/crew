@@ -1,9 +1,19 @@
-<div class="row">
-    <div class="col-md-12">
-        <form method="POST" action="/groups/create" class="create-group">
-            <h1>Create Group</h1>
-            <input type="text" name="groupName" class="form-control" placeholder="Group Name (No Spaces)">
-            <button class="btn btn-lg btn-primary btn-block" type="submit" value="submit">Create</button>
-        </form>
+<div class="homepage">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<p class="homepage-content">
+					Create a temporary chat group that will disapear on the date of your choosing
+				</p>
+			</div>
+		    <div class="col-md-6">
+		        <form method="POST" action="/groups/create" class="create-group">
+		            <h1>Create Group</h1>
+		            <input type="text" name="groupName" class="form-control" id="groupName" placeholder="Group Name (No Spaces)">
+		            <input type="text" class="date-picker form-control" data-date-start-view="month" data-date-format="mm/dd/yy" data-date="{{dateTomorrow}}" value="{{dateTomorrow}}" name="removeDate" placeholder="MM/DD/YY" id="date-picker">
+		            <button class="btn btn-lg btn-primary btn-block" type="submit" value="submit">Create</button>
+		        </form>
+		    </div>
+		</div>
     </div>
 </div>

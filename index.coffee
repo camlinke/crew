@@ -5,6 +5,7 @@ io = require('socket.io')(http)
 expressHandlebars = require 'express-handlebars'
 mongoose = require 'mongoose'
 bodyParser = require 'body-parser'
+moment = require 'moment'
 
 cookieParser = require('cookie-parser')()
 session = require('cookie-session')({secret: 'secret'})
@@ -51,7 +52,8 @@ Chat = mongoose.model 'Chat', messageSchema
 Group = mongoose.model 'Group', groupSchema
 
 app.get '/', (req, res) ->
-    res.render 'home'
+    dateTomorrow = moment().format('MM/DD/YY')
+    res.render 'home', { dateTomorrow: dateTomorrow}
 
 app.get '/test', (req, res) ->
     res.send "testssss"
@@ -60,7 +62,7 @@ app.get '/groups/:group', (req, res) ->
     Group.find({
         'groupName': req.params.group,
     }).exec (err, group) ->
-        if group and group[0].endDate > new Date()
+        if group.length > 0 and group[0].endDate > new Date()
             group = group[0]
             Chat.find({
                 'group': req.params.group
@@ -86,8 +88,9 @@ app.post '/users/create', (req, res) ->
 
 
 app.post '/groups/create', (req, res) ->
+    groupName = req.body.groupName.replace /// ///g,''
     Chat.find({
-        'group': req.body.groupName
+        'group': groupName
     }).exec (err, group) ->
         if group.length > 0
             error = "group already exists"
@@ -96,13 +99,13 @@ app.post '/groups/create', (req, res) ->
         else
             g = {
                 created: +new Date,
-                endDate: +new Date + 86400000,
-                groupName: req.body.groupName,
+                endDate: +new Date + 864000000,
+                groupName: groupName,
                 password: ""
             }
             group = new Group(g)
             group.save (err, savedGroup) ->
-                res.redirect "/groups/#{req.body.groupName}"
+                res.redirect "/groups/#{groupName}"
 
 
 io.on 'connection', (socket) ->

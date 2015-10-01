@@ -1,0 +1,13 @@
+{
+  "name": "bootstrap-datepicker-mobile",
+  "version": "0.0.1",
+  "main": [ "bootstrap-datepicker-mobile.js" ],
+  "dependencies": {
+    "jquery": ">=1.7.1",
+    "bootstrap": ">=3.0 <4.0",
+    "bootstrap-datepicker": "~1.3.0",
+    "modernizr": "~2.8.3",
+    "moment": "~2.8.4"
+  },
+  "ignore": {}
+}

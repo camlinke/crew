@@ -1,0 +1,26 @@
+{
+  "name": "bootstrap-datepicker-mobile",
+  "version": "0.0.1",
+  "main": [
+    "bootstrap-datepicker-mobile.js"
+  ],
+  "dependencies": {
+    "jquery": ">=1.7.1",
+    "bootstrap": ">=3.0 <4.0",
+    "bootstrap-datepicker": "~1.3.0",
+    "modernizr": "~2.8.3",
+    "moment": "~2.8.4"
+  },
+  "ignore": {},
+  "homepage": "https://github.com/niftylettuce/bootstrap-datepicker-mobile",
+  "_release": "0.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.0.1",
+    "commit": "8b47f0b0e21dfd143904ee114258455bdf34301d"
+  },
+  "_source": "git://github.com/niftylettuce/bootstrap-datepicker-mobile.git",
+  "_target": "~0.0.1",
+  "_originalSource": "bootstrap-datepicker-mobile",
+  "_direct": true
+}

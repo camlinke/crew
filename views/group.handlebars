@@ -1,26 +1,28 @@
-<h1 class="group-title">{{group.groupName}}</h1>
-<h4 class="timer">Removed on <span id=clock>{{group.endDate}}</span></h4>
-<div class="row">
-    <div class="column-md-12 messages" id="messages">
-        {{#each msgs}}
-            <span class="username">{{this.username}}</span> <span class="datetime">{{this.created}}</span>
-            <p class="content">
-                {{this.content}}
-            </p>
-            <hr>
-        {{/each}}
-    </div>
-</div>
-
-<div class="row message-bar">
-    <form action="" class="col-md-10 message-form">
-        <div class="input-group">
-            <input type="text" name="message" class="form-control" id="m">
-            <span class="input-group-btn">
-                <button class="btn btn-default" type="button">Post</button>
-            </span>
+<div class="container">
+    <h1 class="group-title">{{group.groupName}}</h1>
+    <h4 class="timer">Dissapears on <span id=clock>{{group.endDate}}</span></h4>
+    <div class="row">
+        <div class="column-md-12 messages" id="messages">
+            {{#each msgs}}
+                <span class="username">{{this.username}}</span> <span class="datetime">{{this.created}}</span>
+                <p class="content">
+                    {{this.content}}
+                </p>
+                <hr>
+            {{/each}}
         </div>
-    </form>
+    </div>
+
+    <div class="row message-bar">
+        <form action="" class="col-md-10 message-form">
+            <div class="input-group">
+                <input type="text" name="message" class="form-control" id="m">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">Post</button>
+                </span>
+            </div>
+        </form>
+    </div>
 </div>
 <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 <script type="text/javascript" src="../js/io.js"></script>

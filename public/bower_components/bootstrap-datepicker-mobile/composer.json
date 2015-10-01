@@ -1,0 +1,26 @@
+{
+  "name": "niftylettuce/bootstrap-datepicker-mobile",
+  "description": "An add-on for https://github.com/eternicode/bootstrap-datepicker to add responsive support for mobile devices with consideration for native input[type=date] support using Modernizr and Moment.js.",
+  "keywords": [
+    "bootstrap",
+    "datepicker",
+    "mobile",
+    "responsive"
+  ],
+  "type": "component",
+  "require": {
+    "robloach/component-installer": "*",
+    "components/bootstrap" : ">=3.0, <4.0",
+    "components/jquery": ">=1.7.1",
+    "components/bootstrap-datepicker": "~1.3.0",
+    "components/modernizr": "~2.8.3",
+    "components/moment": "~2.8.4"
+  },
+  "extra": {
+    "component": {
+      "scripts": [
+        "bootstrap-datepicker-mobile.js"
+      ]
+    }
+  }
+}

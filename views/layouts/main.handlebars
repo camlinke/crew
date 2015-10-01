@@ -3,14 +3,37 @@
         <title>Crew</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../css/styles.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/bower_components/bootstrap-datepicker/css/datepicker3.css">
+        <script src="/bower_components/modernizr/modernizr.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     </head>
 
     <body>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <div class="container">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span> 
+                    </button>
+                    <a class="navbar-brand" href="/">FlyChat</a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">Item</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        {{!-- <div class="container"> --}}
             {{{body}}}
-        </div>
+        {{!-- </div> --}}
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script src="/bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+        <script src="/bower_components/moment/moment.js"></script>
+        <script src="/bower_components/bootstrap-datepicker-mobile/bootstrap-datepicker-mobile.js"></script>
+        <script src="../js/scripts.js"></script>
     </body>
 </html>
