@@ -107,3 +107,7 @@ h1 {
 .group-title, .username-title{
     margin-top: 70px;
 }
+
+#messages {
+    margin-bottom: 40px;
+}

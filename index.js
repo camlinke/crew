@@ -106,6 +106,9 @@ app.get('/groups/:group', function(req, res) {
         } else {
           username = req.session.username;
           req.session.groupName = group.groupName;
+          group.endDate = moment(group.endDate).format();
+          console.log("HERE");
+          console.log(group.endDate);
           return res.render('group', {
             msgs: msgs,
             group: group,
@@ -174,7 +177,7 @@ io.on('connection', function(socket) {
       return io.emit('chat message', {
         msg: msg,
         username: currentSession.username,
-        datetime: datetime
+        datetime: moment(datetime).format("MM/DD/YY")
       });
     });
   });

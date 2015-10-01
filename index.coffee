@@ -74,6 +74,9 @@ app.get '/groups/:group', (req, res) ->
                 else
                     username = req.session.username
                     req.session.groupName = group.groupName
+                    group.endDate = moment(group.endDate).format()
+                    console.log "HERE"
+                    console.log group.endDate
                     res.render 'group', { msgs: msgs, group: group, username: username }
         else
             res.redirect "/"
@@ -124,7 +127,7 @@ io.on 'connection', (socket) ->
         chat = new Chat(message)
         chat.save (err, savedMessage) ->
             console.log savedMessage
-            io.emit 'chat message', {msg: msg, username: currentSession.username, datetime: datetime}
+            io.emit 'chat message', {msg: msg, username: currentSession.username, datetime: moment(datetime).format("MM/DD/YY")}
 
     socket.on 'disconnect', ->
         console.log 'user disconnected'
