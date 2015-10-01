@@ -92,12 +92,12 @@ app.get('/test', function(req, res) {
 app.get('/groups/:group', function(req, res) {
   return Group.find({
     'groupName': req.params.group
-  }).exec(function(err, group) {
+  }).lean().exec(function(err, group) {
     if (group.length > 0 && group[0].endDate > new Date()) {
       group = group[0];
       return Chat.find({
         'group': req.params.group
-      }).exec(function(err, msgs) {
+      }).lean().exec(function(err, msgs) {
         var username;
         console.log(msgs);
         if (!req.session.username) {
@@ -106,9 +106,10 @@ app.get('/groups/:group', function(req, res) {
         } else {
           username = req.session.username;
           req.session.groupName = group.groupName;
-          group.endDate = moment(group.endDate).format();
-          console.log("HERE");
-          console.log(group.endDate);
+          msgs.map(function(msg) {
+            return msg.created = moment(msg.created).format("MM/DD/YY");
+          });
+          group.endDate = moment(group.endDate).format("MM/DD/YY");
           return res.render('group', {
             msgs: msgs,
             group: group,
