@@ -103,3 +103,7 @@ h1 {
 .create-group button {
     margin-top: 30px;
 }
+
+.group-title, .username-title{
+    margin-top: 70px;
+}
