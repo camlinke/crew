@@ -16,7 +16,7 @@ socket.on('chat message', function(msg) {
   messages = $('#messages');
   messages.append($('<span class="username">').text(messageHeader));
   messages.append($('<span class="datetime">').text(msg.datetime));
-  messages.append($('<p class="content">').text("  " + msg.msg));
+  messages.append($('<p class="content">').text("" + msg.msg));
   messages.append($('<hr>'));
   $('#latest').remove();
   messages.append($('<span id="latest">'));

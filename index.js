@@ -107,9 +107,9 @@ app.get('/groups/:group', function(req, res) {
           username = req.session.username;
           req.session.groupName = group.groupName;
           msgs.map(function(msg) {
-            return msg.created = moment(msg.created).format("MM/DD/YY");
+            return msg.created = moment(msg.created).fromNow();
           });
-          group.endDate = moment(group.endDate).format("MM/DD/YY");
+          group.endDate = moment(group.endDate).fromNow();
           return res.render('group', {
             msgs: msgs,
             group: group,
@@ -178,7 +178,7 @@ io.on('connection', function(socket) {
       return io.emit('chat message', {
         msg: msg,
         username: currentSession.username,
-        datetime: moment(datetime).format("MM/DD/YY")
+        datetime: moment(datetime).fromNow()
       });
     });
   });
