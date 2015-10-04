@@ -1,5 +1,6 @@
 body {
-    background-color: #FFE0A6;
+    /*background-color: #FFE0A6;*/
+    background-color: #FFFFF8;
 }
 
 .btn {
@@ -65,7 +66,7 @@ h1 {
 .message-form {
     bottom: 0px;
     position: fixed;
-    background-color: #FFE0A6;
+    background-color: #FFFFF8;
     padding-bottom: 15px;
     padding-top: 15px;
     margin-bottom: 0px;
