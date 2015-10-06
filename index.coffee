@@ -78,7 +78,9 @@ app.get '/groups/:group', (req, res) ->
                     group.endDate = moment(group.endDate).fromNow() #format "MM/DD/YY"
                     res.render 'group', { msgs: msgs, group: group, username: username }
         else
-            res.redirect "/"
+            error = "Unable to find group"
+            dateTomorrow = moment().add(1, 'days').format 'MM/DD/YY'
+            res.render "home", { error: error, dateTomorrow: dateTomorrow }
     # res.send "id is sdet to #{req.params.group}"
 
 app.get '/users/create', (req, res) ->
@@ -96,9 +98,9 @@ app.post '/groups/create', (req, res) ->
         'group': groupName
     }).exec (err, group) ->
         if group.length > 0
-            error = "group already exists"
+            error = "Group already exists"
             console.log error
-            res.redirect "/"
+            res.redirect "/error/exists"
         else
             g = {
                 created: +new Date,
@@ -110,6 +112,10 @@ app.post '/groups/create', (req, res) ->
             group.save (err, savedGroup) ->
                 res.redirect "/groups/#{groupName}"
 
+app.get '/error/exists', (req, res) ->
+    error = "Group already exists"
+    dateTomorrow = moment().add(1, 'days').format 'MM/DD/YY'
+    res.render 'home', { error: error, dateTomorrow: dateTomorrow }
 
 io.on 'connection', (socket) ->
     currentSession = socket.handshake.session

@@ -93,6 +93,7 @@ app.get('/groups/:group', function(req, res) {
   return Group.find({
     'groupName': req.params.group
   }).lean().exec(function(err, group) {
+    var dateTomorrow, error;
     if (group.length > 0 && group[0].endDate > new Date()) {
       group = group[0];
       return Chat.find({
@@ -118,7 +119,12 @@ app.get('/groups/:group', function(req, res) {
         }
       });
     } else {
-      return res.redirect("/");
+      error = "Unable to find group";
+      dateTomorrow = moment().add(1, 'days').format('MM/DD/YY');
+      return res.render("home", {
+        error: error,
+        dateTomorrow: dateTomorrow
+      });
     }
   });
 });
@@ -141,9 +147,9 @@ app.post('/groups/create', function(req, res) {
   }).exec(function(err, group) {
     var error, g;
     if (group.length > 0) {
-      error = "group already exists";
+      error = "Group already exists";
       console.log(error);
-      return res.redirect("/");
+      return res.redirect("/error/exists");
     } else {
       g = {
         created: +(new Date),
@@ -156,6 +162,16 @@ app.post('/groups/create', function(req, res) {
         return res.redirect("/groups/" + groupName);
       });
     }
+  });
+});
+
+app.get('/error/exists', function(req, res) {
+  var dateTomorrow, error;
+  error = "Group already exists";
+  dateTomorrow = moment().add(1, 'days').format('MM/DD/YY');
+  return res.render('home', {
+    error: error,
+    dateTomorrow: dateTomorrow
   });
 });
 

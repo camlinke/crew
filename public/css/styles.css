@@ -23,6 +23,10 @@ body {
     color: black;
 }
 
+.navbar-inverse .navbar-brand {
+    color: black;
+}
+
 h1 {
     text-align: center;
 }
@@ -39,6 +43,11 @@ h1 {
     font-weight: 300;
     line-height: 1.5;
     text-align: center;
+}
+
+.homepage-alert {
+    margin-top: 70px;
+    margin-bottom: -30px;
 }
 
 .username {

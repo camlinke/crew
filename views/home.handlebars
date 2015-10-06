@@ -1,6 +1,9 @@
 <div class="homepage">
 	<div class="container">
 		<div class="row">
+			{{#if error}}
+				<div class="alert alert-danger homepage-alert">{{error}}</div>
+			{{/if}}
 			<div class="col-md-6">
 				<p class="homepage-content">
 					Create a temporary chat group that will disapear on the date of your choosing
