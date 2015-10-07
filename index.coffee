@@ -69,7 +69,7 @@ app.get '/groups/:group', (req, res) ->
             }).lean().exec (err, msgs) ->
                 console.log msgs
                 if !req.session.username
-                    req.session.group = req.params.group
+                    req.session.groupName = req.params.groupName
                     res.redirect '/users/create'
                 else
                     username = req.session.username
@@ -116,6 +116,10 @@ app.get '/error/exists', (req, res) ->
     error = "Group already exists"
     dateTomorrow = moment().add(1, 'days').format 'MM/DD/YY'
     res.render 'home', { error: error, dateTomorrow: dateTomorrow }
+
+app.get '/logout', (req, res) ->
+    req.session = null
+    res.redirect '/'
 
 io.on 'connection', (socket) ->
     currentSession = socket.handshake.session

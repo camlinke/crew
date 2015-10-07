@@ -102,7 +102,7 @@ app.get('/groups/:group', function(req, res) {
         var username;
         console.log(msgs);
         if (!req.session.username) {
-          req.session.group = req.params.group;
+          req.session.groupName = req.params.groupName;
           return res.redirect('/users/create');
         } else {
           username = req.session.username;
@@ -173,6 +173,11 @@ app.get('/error/exists', function(req, res) {
     error: error,
     dateTomorrow: dateTomorrow
   });
+});
+
+app.get('/logout', function(req, res) {
+  req.session = null;
+  return res.redirect('/');
 });
 
 io.on('connection', function(socket) {
