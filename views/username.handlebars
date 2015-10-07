@@ -1,5 +1,11 @@
-<h1 class="username-title">Create Username</h1>
-<form method="POST" action="/users/create">
-    <input type="text" name="username"><br>
-    <button class="btn btn-default" type="submit" value="submit">Create</button>
-</form>
+<div class="container">
+	<h1 class="username-title">Create Username</h1>
+	<form method="POST" action="/users/create">
+		<div class="input-group">
+		    <input type="text" name="username" class="form-control"><br>
+		    <div class="input-group-btn">
+			    <button class="btn btn-default" type="submit" value="submit" id="message-submit-button">Create</button>
+		    </div>
+	    </div>
+	</form>
+</div>

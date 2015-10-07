@@ -52,11 +52,13 @@ h1 {
 
 .username {
     font-size: 18px;
+    font-weight: 600;
 }
 
 .datetime {
     font-size: 14px;
     color: lightgrey;
+    font-weight: 200;
 }
 
 .content {
@@ -120,4 +122,10 @@ h1 {
 
 #messages {
     margin-bottom: 40px;
+}
+
+#message-submit-button {
+    border-bottom: 1px solid grey;
+    border-top: 1px solid grey;
+    border-right: 1px solid grey;
 }
