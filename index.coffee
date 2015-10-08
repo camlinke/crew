@@ -69,7 +69,7 @@ app.get '/groups/:group', (req, res) ->
             }).lean().exec (err, msgs) ->
                 console.log msgs
                 if !req.session.username
-                    req.session.groupName = req.params.groupName
+                    req.session.groupName = req.params.group
                     res.redirect '/users/create'
                 else
                     username = req.session.username
@@ -84,6 +84,7 @@ app.get '/groups/:group', (req, res) ->
     # res.send "id is sdet to #{req.params.group}"
 
 app.get '/users/create', (req, res) ->
+    console.log req.session.groupName
     res.render 'username'
 
 app.post '/users/create', (req, res) ->

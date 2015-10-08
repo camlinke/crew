@@ -102,7 +102,7 @@ app.get('/groups/:group', function(req, res) {
         var username;
         console.log(msgs);
         if (!req.session.username) {
-          req.session.groupName = req.params.groupName;
+          req.session.groupName = req.params.group;
           return res.redirect('/users/create');
         } else {
           username = req.session.username;
@@ -130,6 +130,7 @@ app.get('/groups/:group', function(req, res) {
 });
 
 app.get('/users/create', function(req, res) {
+  console.log(req.session.groupName);
   return res.render('username');
 });
 
