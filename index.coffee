@@ -53,7 +53,7 @@ Group = mongoose.model 'Group', groupSchema
 
 app.get '/', (req, res) ->
     dateTomorrow = moment().add(1, 'days').format 'MM/DD/YY'
-    res.render 'home', { dateTomorrow: dateTomorrow}
+    res.render 'home', { dateTomorrow: dateTomorrow, username: req.session.username}
 
 app.get '/test', (req, res) ->
     res.send "testssss"
@@ -80,7 +80,7 @@ app.get '/groups/:group', (req, res) ->
         else
             error = "Unable to find group"
             dateTomorrow = moment().add(1, 'days').format 'MM/DD/YY'
-            res.render "home", { error: error, dateTomorrow: dateTomorrow }
+            res.render "home", { error: error, dateTomorrow: dateTomorrow, username: req.session.username }
     # res.send "id is sdet to #{req.params.group}"
 
 app.get '/users/create', (req, res) ->
@@ -116,7 +116,7 @@ app.post '/groups/create', (req, res) ->
 app.get '/error/exists', (req, res) ->
     error = "Group already exists"
     dateTomorrow = moment().add(1, 'days').format 'MM/DD/YY'
-    res.render 'home', { error: error, dateTomorrow: dateTomorrow }
+    res.render 'home', { error: error, dateTomorrow: dateTomorrow, username: req.session.username }
 
 app.get '/logout', (req, res) ->
     req.session = null

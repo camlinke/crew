@@ -81,7 +81,8 @@ app.get('/', function(req, res) {
   var dateTomorrow;
   dateTomorrow = moment().add(1, 'days').format('MM/DD/YY');
   return res.render('home', {
-    dateTomorrow: dateTomorrow
+    dateTomorrow: dateTomorrow,
+    username: req.session.username
   });
 });
 
@@ -123,7 +124,8 @@ app.get('/groups/:group', function(req, res) {
       dateTomorrow = moment().add(1, 'days').format('MM/DD/YY');
       return res.render("home", {
         error: error,
-        dateTomorrow: dateTomorrow
+        dateTomorrow: dateTomorrow,
+        username: req.session.username
       });
     }
   });
@@ -172,7 +174,8 @@ app.get('/error/exists', function(req, res) {
   dateTomorrow = moment().add(1, 'days').format('MM/DD/YY');
   return res.render('home', {
     error: error,
-    dateTomorrow: dateTomorrow
+    dateTomorrow: dateTomorrow,
+    username: req.session.username
   });
 });
 
