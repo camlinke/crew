@@ -124,9 +124,11 @@ app.get '/logout', (req, res) ->
 
 io.on 'connection', (socket) ->
     currentSession = socket.handshake.session
+    currentGroup = currentSession.groupName
     console.log "User: #{currentSession.username} is in group: #{currentSession.groupName}"
 
-    socket.on 'chat message', (msg) ->
+    socket.on "chat message", (msg) ->
+        console.log currentGroup
         datetime = +new Date()
         message = {
             created: datetime,
@@ -137,7 +139,7 @@ io.on 'connection', (socket) ->
         chat = new Chat(message)
         chat.save (err, savedMessage) ->
             console.log savedMessage
-            io.emit 'chat message', {msg: msg, username: currentSession.username, datetime: moment(datetime).fromNow()}#format("MM/DD/YY")
+            io.emit 'chat message', {msg: msg, username: currentSession.username, datetime: moment(datetime).fromNow()}
 
     socket.on 'disconnect', ->
         console.log 'user disconnected'

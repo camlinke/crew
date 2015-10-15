@@ -185,11 +185,13 @@ app.get('/logout', function(req, res) {
 });
 
 io.on('connection', function(socket) {
-  var currentSession;
+  var currentGroup, currentSession;
   currentSession = socket.handshake.session;
+  currentGroup = currentSession.groupName;
   console.log("User: " + currentSession.username + " is in group: " + currentSession.groupName);
-  socket.on('chat message', function(msg) {
+  socket.on("chat message", function(msg) {
     var chat, datetime, message;
+    console.log(currentGroup);
     datetime = +new Date();
     message = {
       created: datetime,

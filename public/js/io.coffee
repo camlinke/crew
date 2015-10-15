@@ -1,10 +1,12 @@
+# group = $('#m').data "group"
+# console.log group
 socket = io()
 $('form').submit ->
-    socket.emit 'chat message', $('#m').val()
+    socket.emit "chat message", $('#m').val()
     $('#m').val ''
     return false
 
-socket.on 'chat message', (msg) ->
+socket.on "chat message", (msg) ->
     console.log msg
     messageHeader = "#{msg.username}"
     messages = $('#messages')

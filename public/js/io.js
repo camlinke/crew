@@ -4,12 +4,12 @@ var socket;
 socket = io();
 
 $('form').submit(function() {
-  socket.emit('chat message', $('#m').val());
+  socket.emit("chat message", $('#m').val());
   $('#m').val('');
   return false;
 });
 
-socket.on('chat message', function(msg) {
+socket.on("chat message", function(msg) {
   var messageHeader, messages;
   console.log(msg);
   messageHeader = "" + msg.username;
