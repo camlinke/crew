@@ -50,6 +50,8 @@ groupSchema = mongoose.Schema {
 
 Chat = mongoose.model 'Chat', messageSchema
 Group = mongoose.model 'Group', groupSchema
+# Chat = mongoose.model messageSchema # "./models/messageSchema"
+# Group = mongoose.model groupSchema # "./models/groupSchema"
 
 app.get '/', (req, res) ->
     dateTomorrow = moment().add(1, 'days').format 'MM/DD/YY'
@@ -67,7 +69,6 @@ app.get '/groups/:group', (req, res) ->
             Chat.find({
                 'group': req.params.group
             }).lean().exec (err, msgs) ->
-                console.log msgs
                 if !req.session.username
                     req.session.groupName = req.params.group
                     res.redirect '/users/create'

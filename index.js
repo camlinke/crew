@@ -101,7 +101,6 @@ app.get('/groups/:group', function(req, res) {
         'group': req.params.group
       }).lean().exec(function(err, msgs) {
         var username;
-        console.log(msgs);
         if (!req.session.username) {
           req.session.groupName = req.params.group;
           return res.redirect('/users/create');
